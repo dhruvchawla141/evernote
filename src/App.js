@@ -12,10 +12,12 @@ function App() {
   const [selectedNoteIndex, setSelectedNoteIndex] = useState(null);
 
   useEffect(() => {
+    //go into firebase, grab all notes, and set state with notes
     firebase
       .firestore()
       .collection("notes")
       .onSnapshot((serverUpdate) => {
+        //onsnapshot is automatic called when notes collection is update
         const notes = serverUpdate.docs.map((_doc) => {
           const data = _doc.data();
           data["id"] = _doc.id;
@@ -42,6 +44,7 @@ function App() {
   const deleteNote = async (note) => {
     const noteIndex = notes.indexOf(note);
     await setNotes(notes.filter((_note) => _note !== note));
+    //if note is selected, it is necesary to deselct the note first and then resetting the state, else it will show in quill or may throw server error
     if (selectedNoteIndex === noteIndex) {
       setSelectedNoteIndex(null);
       setSelectedNote(null);
@@ -56,6 +59,7 @@ function App() {
   };
 
   const newNote = async (title) => {
+    //fn for making new note
     const note = {
       title: title,
       body: "",
@@ -66,13 +70,16 @@ function App() {
       body: note.body,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    const newID = newFromDB.id;
+    const newID = newFromDB.id; //auto id to grab response
     await setNotes({ notes: [...notes, note] });
+    //indexOf fn of array obj that finds the index of particulat item inside array and what I am doing is I am iterating with the help of filter where note.id = newId, so if I got newId in notes then I am selecting it automatically
     const newNoteIndex = notes.indexOf(
       notes.filter((_note) => _note.id === newID)[0]
     );
     setSelectedNote(notes[newNoteIndex]);
     setSelectedNoteIndex(newNoteIndex);
+
+    // so when I want to create a new note, this will go to firebase, add new note and then it update the selected note with the one I created
   };
 
   return (

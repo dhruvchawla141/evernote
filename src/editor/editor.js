@@ -37,6 +37,7 @@ function EditorComponent(props) {
 
   useEffect(() => {
     if (props.selectedNote.id !== id) {
+      //if the id of selected is different from the one that is displaying, call below thing again
       setText(props.selectedNote.body);
       setTitle(props.selectedNote.title);
       setId(props.selectedNote.id);
@@ -66,3 +67,4 @@ function EditorComponent(props) {
 }
 
 export default withStyles(styles)(EditorComponent);
+//we are passing styles in withstyles and withstyles is returning another fn editorcomponent. What is happening here is that styles.js in editor folder which have functions that have classes that have css styles and here those styles are being converted or created into prop called classes and we can access those props in editorcomponent as this.props.classes.className

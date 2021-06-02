@@ -9,15 +9,16 @@ import { removeHTMLTags } from "../helpers";
 function SidebarItem(props) {
   const { _index, _note, classes, selectedNoteIndex } = props;
 
-  const selectNote = (n, i) => props.selectNote(n, i);
+  const selectNote = (n, i) => props.selectNote(n, i); //this will go to sidebar.js
   const deleteNote = (note) => {
-    if (window.confirm(`Are you  sure you want to delete: ${note.title}`)) {
+    if (window.confirm(`Are you sure you want to delete: ${note.title}`)) {
       props.deleteNote(note);
     }
   };
 
   return (
     <div key={_index}>
+      {/* selected propery from material ui, if a note is selected it will be highlighted */}
       <ListItem
         className={classes.listItem}
         selected={selectedNoteIndex === _index}

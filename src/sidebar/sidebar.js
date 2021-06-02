@@ -11,6 +11,7 @@ function SidebarComponent(props) {
 
   const newNoteBtnClick = () => {
     setAddingNote(!addingNote);
+    // it is changed to false to change the text on button; conditional rendering
     setTitle(null);
   };
 
@@ -21,11 +22,12 @@ function SidebarComponent(props) {
   };
 
   const newNote = () => {
+    //this will go to parent in app.js
     props.newNote(title);
     setTitle(null);
     setAddingNote(false);
   };
-  const selectNote = (n, i) => props.selectNote(n, i);
+  const selectNote = (n, i) => props.selectNote(n, i); //control will go to selectnote in app.js
   const deleteNote = (note) => {
     props.deleteNote(note);
   };

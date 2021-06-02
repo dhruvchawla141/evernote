@@ -1,4 +1,5 @@
 export default function Debounce(a, b, c) {
+  // function to updata datbase in realtime after few seconds
   var d, e;
   return function () {
     function h() {
@@ -14,5 +15,6 @@ export default function Debounce(a, b, c) {
 }
 
 export function removeHTMLTags(str) {
+  //do hide html tags from left panel
   return str.replace(/<[^>]*>?/gm, "");
 }
